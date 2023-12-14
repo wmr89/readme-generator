@@ -51,7 +51,7 @@ const questions = [
     },
 ];
 
-function writeReadME(answers) {
+let writeReadMe = function (answers) {
     return
     `# ${answers.title}
     
@@ -85,7 +85,7 @@ function writeReadME(answers) {
 }
 
 // TODO: Create a function to write README file
-let writeToFile =function() {
+let writeToFile = function () {
     fs.writeFile('README.md', readMe, err)
 }
 
@@ -93,9 +93,8 @@ let writeToFile =function() {
 function init() {
     inquirer
         .prompt(questions).then((answers) => {
-            const readMe =   function(answers) {
-            return
-            `# ${answers.title}
+            const readMe =
+                `# ${answers.title}
             
             ##Description
             ${answers.description}
@@ -123,15 +122,17 @@ function init() {
             [Email-${answers.email}](${answers.email})
         
         `
-            }
-        fs.writeFile('README.md',readMe, (err) => {
+        
+        fs.writeFile('README1.md', readMe, (err) => {
             if (err) {
                 console.log('error')
             }
-        })
         }
-    )
+    
+        )
+})
 }
+
 
 // Function call to initialize app
 init(
