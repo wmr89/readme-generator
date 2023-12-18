@@ -1,12 +1,13 @@
 // TODO: Include packages needed for this application
-let fs = require('fs');
-let inquirer = require('inquirer')
+const fs = require('fs');
+const inquirer = require('inquirer')
+const generateMarkdown = require('./utils/generateMarkdown.js')
 
 // TODO: Create an array of questions for user input
 const questions = [
     {
         type: 'input',
-        message: 'What is the name of your project?',
+        message: 'What is the title of your project?',
         name: 'title',
     },
     {
@@ -16,12 +17,12 @@ const questions = [
     },
     {
         type: 'input',
-        message: 'What is step 1 of installation?(if none, enter na)',
+        message: 'Provide the steps required for installation?',
         name: 'install',
     },
     {
         type: 'input',
-        message: 'Provide instructions and examples for use',
+        message: 'Provide instructions and examples for use.',
         name: 'usage',
     },
     {
@@ -31,110 +32,40 @@ const questions = [
     },
     {
         type: 'input',
-        message: 'What License are you using',
-        name: 'license',
-    },
-    {
-        type: 'input',
         message: 'Enter your git hub id',
         name: 'githubId',
-    },
-    {
-        type: 'input',
-        message: 'Enter your git hub url',
-        name: 'githubUrl',
     },
     {
         type: 'input',
         message: 'Enter your email',
         name: 'email',
     },
+    {
+        type: 'list',
+        message: 'What License are you using',
+        name: 'license',
+        choices: ['MIT', "Apache",  "Creative Commons", "None"]
+    }
 ];
 
-let writeReadMe = function (answers) {
-    return
-    `# ${answers.title}
-    
-    ##Description
-    ${answers.description}
-    
-    ##Table of Contents
-    - [Installation](#installation)
-    - [Usage](#usage)
-    - [Credits](#credits)
-    - [License](#license)
-
-    ## Installation
-    ${answers.install}
-
-    ##Usage
-    ${answers.usage}
-
-    ##Credits
-    ${answers.credits}
-
-    ##License
-    ${answers.license}
-
-    ##Questions
-    [Github-${answers.githubId}](${answers.githubUrl})
-    [Email-${answers.email}](${answers.email})
-
-`
-
-}
-
 // TODO: Create a function to write README file
-let writeToFile = function () {
-    fs.writeFile('README.md', readMe, err)
+const writeToFile = function (fileName, data) {
+    fs.writeFile(fileName, data, (err) => {
+        if (err) {
+            console.log('error')
+        }
+    })
 }
+
 
 // TODO: Create a function to initialize app
 function init() {
     inquirer
         .prompt(questions).then((answers) => {
-            const readMe =
-                `# ${answers.title}
-            
-            ##Description
-            ${answers.description}
-            
-            ##Table of Contents
-            - [Installation](#installation)
-            - [Usage](#usage)
-            - [Credits](#credits)
-            - [License](#license)
-        
-            ## Installation
-            ${answers.install}
-        
-            ##Usage
-            ${answers.usage}
-        
-            ##Credits
-            ${answers.credits}
-        
-            ##License
-            ${answers.license}
-        
-            ##Questions
-            [Github-${answers.githubId}](${answers.githubUrl})
-            [Email-${answers.email}](${answers.email})
-        
-        `
-        
-        fs.writeFile('README1.md', readMe, (err) => {
-            if (err) {
-                console.log('error')
-            }
-        }
-    
-        )
-})
+            writeToFile('README.md', generateMarkdown(answers))
+        })
 }
 
 
 // Function call to initialize app
-init(
-
-);
+init();
