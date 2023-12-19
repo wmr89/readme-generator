@@ -10,15 +10,11 @@ function renderLicenseBadge(license) {
       return "![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)"
       
     case "Creative Commons":
-      let badgeCC = "![License: CC0-1.0](https://img.shields.io/badge/License-CC0_1.0-lightgrey.svg)"
-      fs.appendFile("README1.md", badgeCC, (err) => {
-        if (err) {
-            console.log('error')
-        }
-    })
+      return  "![License: CC0-1.0](https://img.shields.io/badge/License-CC0_1.0-lightgrey.svg)"
+    
     default:
       return ''
-  } 
+  }
 }
 
 // TODO: Create a function that returns the license link
@@ -52,7 +48,8 @@ function generateMarkdown(data) {
   ## Table of Contents
   - [Installation](#installation)
   - [Usage](#usage)
-  - [Credits](#credits)
+  - [Tests](tests)
+  - [Contributions](#contributions)
   ${renderLicenseLink(data.license)}
   - [Questions](#questions)
  
@@ -62,9 +59,12 @@ function generateMarkdown(data) {
           
   ## Usage
   ${data.usage}
+
+  ## Tests
+  ${data.tests}
           
-  ## Credits
-  ${data.credits}
+  ## Contributions
+  ${data.contributions}
   
   ${renderLicenseSection(data.license)}
 

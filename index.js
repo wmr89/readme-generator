@@ -27,8 +27,13 @@ const questions = [
     },
     {
         type: 'input',
-        message: 'Enter any credits',
-        name: 'credits',
+        message: 'Provide instructions on any tests required for your project.',
+        name: 'tests',
+    },
+    {
+        type: 'input',
+        message: 'Describe how users can contribute to this repo',
+        name: 'contributions',
     },
     {
         type: 'input',
@@ -62,7 +67,7 @@ const writeToFile = function (fileName, data) {
 function init() {
     inquirer
         .prompt(questions).then((answers) => {
-            writeToFile('README.md', generateMarkdown(answers))
+            writeToFile('sample_README.md', generateMarkdown(answers))
         })
 }
 
